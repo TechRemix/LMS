@@ -1,10 +1,12 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "lms");
+// Connect to PostgreSQL
+$conn = pg_connect("host=dpg-d1tafq6mcj7s73d58avg-a dbname=lms_db_3hx1 user=lms_db_3hx1_user password=ImGmDcnvBzwU1ustoexBQSjvywKJmFsx port=5432");
 
-if ($mysqli->connect_error) {
-  die("Connection failed: " . $mysqli->connect_error);
+if (!$conn) {
+  die("Connection failed: " . pg_last_error());
 }
 
+// Get POST data
 $name     = $_POST['name'];
 $details  = $_POST['details'];
 $category = $_POST['category'];
@@ -14,15 +16,17 @@ $year     = $_POST['year'];
 $location = $_POST['location'];
 $status   = $_POST['status'];
 
-$stmt = $mysqli->prepare("INSERT INTO items (name, details, category, quantity, isbn, year, location, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-$stmt->bind_param("sssisiss", $name, $details, $category, $quantity, $isbn, $year, $location, $status);
+// Sanitize and prepare query
+$result = pg_query_params($conn, 
+  "INSERT INTO items (name, details, category, quantity, isbn, year, location, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", 
+  [$name, $details, $category, $quantity, $isbn, $year, $location, $status]
+);
 
-if ($stmt->execute()) {
+if ($result) {
   echo "success";
 } else {
   echo "error";
 }
 
-$stmt->close();
-$mysqli->close();
+pg_close($conn);
 ?>
