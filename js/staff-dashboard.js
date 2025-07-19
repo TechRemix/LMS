@@ -111,13 +111,14 @@ function saveRow(button) {
     status: select.value.trim()
   };
 
-  // ✅ Require all fields
-  for (const [key, value] of Object.entries(updatedData)) {
-    if (!value && key !== "id") {
-      showToast(`Please fill in the "${key.replace('_', ' ')}" field.`);
-      return;
-    }
+// ✅ Require all fields
+for (const [key, value] of Object.entries(updatedData)) {
+  if (!value && key !== "id") {
+    showToast("Please fill in all fields.");
+    return;
   }
+}
+
 
   const formData = new URLSearchParams();
   for (const key in updatedData) {
