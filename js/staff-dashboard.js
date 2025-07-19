@@ -111,15 +111,53 @@ function saveRow(button) {
     status: select.value.trim()
   };
 
-// ✅ Require all fields
-for (const [key, value] of Object.entries(updatedData)) {
-  if (!value && key !== "id") {
-    showToast("Please fill in all fields.");
+  // ✅ Require all fields
+  for (const [key, value] of Object.entries(updatedData)) {
+    if (!value && key !== "id") {
+      showToast("Please fill in all fields.");
+      return;
+    }
+  }
+
+  // ✅ Validate individual fields
+  if (updatedData.name.length < 2 || updatedData.name.length > 100) {
+    showToast("Invalid book name.");
     return;
   }
-}
 
+  if (updatedData.details.length < 2 || updatedData.details.length > 100) {
+    showToast("Invalid author name.");
+    return;
+  }
 
+  if (updatedData.category.length < 2 || updatedData.category.length > 50) {
+    showToast("Invalid category.");
+    return;
+  }
+
+  const quantity = parseInt(updatedData.quantity);
+  if (isNaN(quantity) || quantity < 1 || quantity > 1000) {
+    showToast("Quantity must be between 1 and 1000.");
+    return;
+  }
+
+  if (!/^[A-Za-z0-9\-]{4,20}$/.test(updatedData.item_code)) {
+    showToast("Invalid item code.");
+    return;
+  }
+
+  const year = parseInt(updatedData.year);
+  if (isNaN(year) || year < 1000 || year > 2100) {
+    showToast("Year must be between 1000 and 2100.");
+    return;
+  }
+
+  if (updatedData.location.length < 1 || updatedData.location.length > 50) {
+    showToast("Invalid location.");
+    return;
+  }
+
+  // ✅ Send data to server (no changes here)
   const formData = new URLSearchParams();
   for (const key in updatedData) {
     formData.append(key, updatedData[key]);
@@ -163,6 +201,7 @@ for (const [key, value] of Object.entries(updatedData)) {
       showToast("An error occurred.");
     });
 }
+
 
 
 
