@@ -357,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }).filter(Boolean);
           } else {
             const fuse = new Fuse(items, {
-              keys: ["name", "details", "category", "isbn", "year", "status"],
+              keys: ["name", "details", "category", "item_code", "year", "status"],
               threshold: 0.5,
               includeScore: true,
               includeMatches: true
