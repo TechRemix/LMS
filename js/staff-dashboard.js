@@ -101,15 +101,23 @@ function saveRow(button) {
 
   const updatedData = {
     id: itemId,
-    name: inputs[0].value,
-    details: inputs[1].value,
-    category: inputs[2].value,
-    quantity: inputs[3].value,
-    item_code: inputs[4].value,
-    year: inputs[5].value,
-    location: inputs[6].value,
-    status: select.value
+    name: inputs[0].value.trim(),
+    details: inputs[1].value.trim(),
+    category: inputs[2].value.trim(),
+    quantity: inputs[3].value.trim(),
+    item_code: inputs[4].value.trim(),
+    year: inputs[5].value.trim(),
+    location: inputs[6].value.trim(),
+    status: select.value.trim()
   };
+
+  // ✅ Require all fields
+  for (const [key, value] of Object.entries(updatedData)) {
+    if (!value && key !== "id") {
+      showToast(`Please fill in the "${key.replace('_', ' ')}" field.`);
+      return;
+    }
+  }
 
   const formData = new URLSearchParams();
   for (const key in updatedData) {
@@ -127,7 +135,6 @@ function saveRow(button) {
         showToast("Item updated.");
         const isSearch = row.closest("tbody").id === "search-results";
 
-        // Refresh the correct table
         if (isSearch) {
           const query = document.getElementById("search-query")?.value.trim();
           if (query) {
@@ -155,6 +162,7 @@ function saveRow(button) {
       showToast("An error occurred.");
     });
 }
+
 
 
 
