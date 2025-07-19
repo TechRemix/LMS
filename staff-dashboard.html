@@ -47,7 +47,7 @@
           <input type="text" name="details" id="author-input" placeholder="Author(s)" required>
           <input type="text" name="category" id="category-input" placeholder="Category" required>
           <input type="number" name="quantity" id="quantity-input" placeholder="Quantity" required>
-          <input type="text" name="isbn" id="isbn-input" placeholder="ISBN">
+          <input type="text" name="item_code" id="item-code-input" placeholder="Item Code">
           <input type="number" name="year" id="year-input" placeholder="Publication Year">
           <input type="text" name="location" id="location-input" placeholder="Location">
           <select name="status" id="status-input">
@@ -74,7 +74,7 @@
                 <th>Author(s)</th>
                 <th>Category</th>
                 <th>Quantity</th>
-                <th>ISBN</th>
+                <th>Item Code</th>
                 <th>Year</th>
                 <th>Location</th>
                 <th>Status</th>
@@ -94,11 +94,10 @@
     <section id="search-section" class="dashboard-section">
       <h2>🔍 Search Items</h2>
 
-<div class="search-bar" style="margin-bottom: 20px;">
-  <input type="text" id="search-query" placeholder="Search by Title, Author, or Category..." style="padding: 10px; width: 300px;">
-  <button id="clear-button" style="padding: 10px 20px;">Clear</button>
-</div>
-
+      <div class="search-bar" style="margin-bottom: 20px;">
+        <input type="text" id="search-query" placeholder="Search by Title, Author, or Category..." style="padding: 10px; width: 300px;">
+        <button id="clear-button" style="padding: 10px 20px;">Clear</button>
+      </div>
 
       <div class="item-table">
         <div class="table-responsive">
@@ -110,12 +109,12 @@
                 <th>Author(s)</th>
                 <th>Category</th>
                 <th>Quantity</th>
-                <th>ISBN</th>
+                <th>Item Code</th>
                 <th>Year</th>
                 <th>Location</th>
                 <th>Status</th>
                 <th>Last Update</th>
-                <th>Actions</th> <!-- ✅ Added -->
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody id="search-results">
