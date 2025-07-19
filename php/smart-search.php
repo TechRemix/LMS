@@ -1,10 +1,10 @@
 <?php
 header("Content-Type: application/json");
 
-// Connect to MySQL
-$mysqli = new mysqli("localhost", "root", "", "lms");
+// Connect to PostgreSQL
+$conn = pg_connect("host=dpg-d1tafq6mcj7s73d58avg-a dbname=lms_db_3hx1 user=lms_db_3hx1_user password=ImGmDcnvBzwU1ustoexBQSjvywKJmFsx port=5432");
 
-if ($mysqli->connect_error) {
+if (!$conn) {
   http_response_code(500);
   echo json_encode(["error" => "Database connection failed"]);
   exit;
@@ -19,12 +19,12 @@ if (!$query) {
 
 // Tokenize input (split into words)
 $keywords = preg_split('/\s+/', $query);
-$searchFields = ['name', 'details', 'category']; // exclude location, ISBN/year handled separately
+$searchFields = ['name', 'details', 'category'];
 
-$result = $mysqli->query("SELECT * FROM items");
+$result = pg_query($conn, "SELECT * FROM items");
 $matches = [];
 
-while ($row = $result->fetch_assoc()) {
+while ($row = pg_fetch_assoc($result)) {
   $score = 0;
   $allKeywordsFound = true;
 
@@ -78,5 +78,5 @@ usort($matches, fn($a, $b) => $b['score'] <=> $a['score']);
 // Return top 10 matches
 echo json_encode(array_slice($matches, 0, 10));
 
-$mysqli->close();
+pg_close($conn);
 ?>
