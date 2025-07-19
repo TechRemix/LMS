@@ -11,15 +11,15 @@ $name     = $_POST['name'];
 $details  = $_POST['details'];
 $category = $_POST['category'];
 $quantity = $_POST['quantity'];
-$isbn     = $_POST['isbn'];
+$item_code = $_POST['item_code'];
 $year     = $_POST['year'];
 $location = $_POST['location'];
 $status   = $_POST['status'];
 
 // Sanitize and prepare query
 $result = pg_query_params($conn, 
-  "INSERT INTO items (name, details, category, quantity, isbn, year, location, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", 
-  [$name, $details, $category, $quantity, $isbn, $year, $location, $status]
+  "INSERT INTO items (name, details, category, quantity, item_code, year, location, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)", 
+  [$name, $details, $category, $quantity, $item_code, $year, $location, $status]
 );
 
 if ($result) {
