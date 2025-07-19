@@ -40,23 +40,24 @@
       <h2>➕ Add Items</h2>
 
       <!-- Add New Book Form -->
-      <div class="item-form">
-        <h3>Add New Book</h3>
-        <form id="add-item-form">
-          <input type="text" name="name" id="title-input" placeholder="Book Name" required>
-          <input type="text" name="details" id="author-input" placeholder="Author(s)" required>
-          <input type="text" name="category" id="category-input" placeholder="Category" required>
-          <input type="number" name="quantity" id="quantity-input" placeholder="Quantity" required>
-          <input type="text" name="item_code" id="item-code-input" placeholder="ISBN" required>
-          <input type="number" name="year" id="year-input" placeholder="Publication Year" required>
-          <input type="text" name="location" id="location-input" placeholder="Location" required>
-          <select name="status" id="status-input">
-            <option value="Available">Available</option>
-            <option value="Unavailable">Unavailable</option>
-          </select>
-          <button type="submit">Add Item</button>
-        </form>
-      </div>
+<div class="item-form">
+  <h3>Add New Book</h3>
+  <form id="add-item-form">
+    <input id="title-input" name="name" type="text" placeholder="Book Name" required minlength="2" maxlength="100" pattern="[A-Za-z0-9 .,&'\-]{2,100}">
+    <input id="author-input" name="details" type="text" placeholder="Author(s)" required minlength="2" maxlength="100">
+    <input id="category-input" name="category" type="text" placeholder="Category" required minlength="2" maxlength="50">
+    <input id="quantity-input" name="quantity" type="number" placeholder="Quantity" required min="1" max="1000">
+    <input id="item-code-input" name="item_code" type="text" placeholder="ISBN" required minlength="4" maxlength="20" pattern="[A-Za-z0-9\-]+">
+    <input id="year-input" name="year" type="number" placeholder="Publication Year" required min="1000" max="2100">
+    <input id="location-input" name="location" type="text" placeholder="Location" required minlength="1" maxlength="50">
+    <select id="status-input" name="status">
+      <option value="Available">Available</option>
+      <option value="Unavailable">Unavailable</option>
+    </select>
+    <button type="submit">Add Item</button>
+  </form>
+</div>
+
 
       <h2 style="text-align: center; margin-bottom: 10px; font-weight: bold; color: #1f4e79;">
         Recently Added Items List
