@@ -50,10 +50,10 @@ while ($row = pg_fetch_assoc($result)) {
     $score += 10;
   }
 
-  // 2. Match ISBN if it starts with the query
-  if (is_numeric($query) && isset($row['isbn'])) {
-    $isbn = (string) $row['isbn'];
-    if (strpos($isbn, $query) === 0) {
+  // 2. Match item_code if it starts with the query
+  if (is_numeric($query) && isset($row['item_code'])) {
+    $item_code = (string) $row['item_code'];
+    if (strpos($item_code, $query) === 0) {
       $score += 10;
     }
   }
