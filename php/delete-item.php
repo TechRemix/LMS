@@ -1,8 +1,9 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $mysqli = new mysqli("localhost", "root", "", "lms");
+  // Connect to PostgreSQL
+  $conn = pg_connect("host=dpg-d1tafq6mcj7s73d58avg-a dbname=lms_db_3hx1 user=lms_db_3hx1_user password=ImGmDcnvBzwU1ustoexBQSjvywKJmFsx port=5432");
 
-  if ($mysqli->connect_error) {
+  if (!$conn) {
     http_response_code(500);
     echo "Database connection failed";
     exit;
@@ -10,16 +11,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   $id = $_POST['id'];
 
-  $stmt = $mysqli->prepare("DELETE FROM items WHERE id = ?");
-  $stmt->bind_param("i", $id);
+  $result = pg_query_params($conn, "DELETE FROM items WHERE id = $1", [$id]);
 
-  if ($stmt->execute()) {
+  if ($result) {
     echo "success";
   } else {
     echo "error";
   }
 
-  $stmt->close();
-  $mysqli->close();
+  pg_close($conn);
 }
 ?>
