@@ -1,7 +1,8 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "lms");
+// Connect to PostgreSQL
+$conn = pg_connect("host=dpg-d1tafq6mcj7s73d58avg-a dbname=lms_db_3hx1 user=lms_db_3hx1_user password=ImGmDcnvBzwU1ustoexBQSjvywKJmFsx port=5432");
 
-if ($mysqli->connect_error) {
+if (!$conn) {
   http_response_code(500);
   echo "Database connection failed";
   exit;
@@ -17,20 +18,21 @@ $year     = $_POST['year'];
 $location = $_POST['location'];
 $status   = $_POST['status'];
 
-$stmt = $mysqli->prepare("
+$query = "
   UPDATE items 
-  SET name = ?, details = ?, category = ?, quantity = ?, isbn = ?, year = ?, location = ?, status = ?
-  WHERE id = ?
-");
+  SET name = $1, details = $2, category = $3, quantity = $4, isbn = $5, year = $6, location = $7, status = $8
+  WHERE id = $9
+";
 
-$stmt->bind_param("sssisissi", $name, $details, $category, $quantity, $isbn, $year, $location, $status, $id);
+$result = pg_query_params($conn, $query, [
+  $name, $details, $category, $quantity, $isbn, $year, $location, $status, $id
+]);
 
-if ($stmt->execute()) {
+if ($result) {
   echo "success";
 } else {
   echo "error";
 }
 
-$stmt->close();
-$mysqli->close();
+pg_close($conn);
 ?>
