@@ -105,7 +105,7 @@ function saveRow(button) {
     details: inputs[1].value,
     category: inputs[2].value,
     quantity: inputs[3].value,
-    isbn: inputs[4].value,
+    item_code: inputs[4].value,
     year: inputs[5].value,
     location: inputs[6].value,
     status: select.value
@@ -337,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
               const matches = [];
 
               if (item.item_code?.startsWith(query)) {
-                matches.push({ key: "isbn", value: item.item_code, indices: [[0, query.length - 1]] });
+                matches.push({ key: "item_code", value: item.item_code, indices: [[0, query.length - 1]] });
               }
               if (item.year?.startsWith(query)) {
                 matches.push({ key: "year", value: item.year, indices: [[0, query.length - 1]] });
@@ -426,7 +426,7 @@ function updateItemTable(results, query = "") {
       <td>${highlightFuseMatch(item.details, getMatch("details"))}</td>
       <td>${highlightFuseMatch(item.category, getMatch("category"))}</td>
       <td>${item.quantity}</td>
-      <td>${highlightFuseMatch(item.item_code, getMatch("isbn"))}</td>
+      <td>${highlightFuseMatch(item.item_code, getMatch("item_code"))}</td>
       <td>${highlightFuseMatch(item.year, getMatch("year"))}</td>
       <td>${item.location}</td> <!-- Not highlighted -->
       <td>${highlightFuseMatch(item.status, getMatch("status"))}</td>
