@@ -7,14 +7,42 @@ if (!$conn) {
 }
 
 // Get POST data
-$name     = $_POST['name'];
-$details  = $_POST['details'];
-$category = $_POST['category'];
-$quantity = $_POST['quantity'];
-$item_code = $_POST['item_code'];
-$year     = $_POST['year'];
-$location = $_POST['location'];
-$status   = $_POST['status'];
+$name       = trim($_POST['name']);
+$details    = trim($_POST['details']);
+$category   = trim($_POST['category']);
+$quantity   = trim($_POST['quantity']);
+$item_code  = trim($_POST['item_code']);
+$year       = trim($_POST['year']);
+$location   = trim($_POST['location']);
+$status     = trim($_POST['status']);
+
+// ✅ Backend validation
+if (
+  empty($name) || empty($details) || empty($category) || empty($quantity) ||
+  empty($item_code) || empty($year) || empty($location) || empty($status)
+) {
+  echo "error";
+  pg_close($conn);
+  exit;
+}
+
+if (!is_numeric($quantity) || (int)$quantity < 1 || (int)$quantity > 9999) {
+  echo "error";
+  pg_close($conn);
+  exit;
+}
+
+if (!is_numeric($year) || (int)$year < 1000 || (int)$year > 2100) {
+  echo "error";
+  pg_close($conn);
+  exit;
+}
+
+if (strlen($item_code) > 30 || strlen($name) > 255 || strlen($details) > 255 || strlen($category) > 255 || strlen($location) > 100) {
+  echo "error";
+  pg_close($conn);
+  exit;
+}
 
 // Sanitize and prepare query
 $result = pg_query_params($conn, 
