@@ -27,11 +27,9 @@ function openPopup(role) {
   const title = document.getElementById("popupTitle");
   const usernameInput = document.getElementById("usernameInput");
 
-  // Update title and input placeholder depending on role
   title.textContent = role + " Login";
   usernameInput.placeholder = role === "Member" ? "Library ID" : "Username";
 
-  // Show the popup
   popup.style.display = "block";
 }
 
@@ -72,8 +70,8 @@ document.addEventListener("DOMContentLoaded", function () {
         if (isNumeric) {
           results = items.map(item => {
             const matches = [];
-            if (item.isbn?.startsWith(query)) {
-              matches.push({ key: "isbn", value: item.isbn, indices: [[0, query.length - 1]] });
+            if (item.item_code?.startsWith(query)) {
+              matches.push({ key: "item_code", value: item.item_code, indices: [[0, query.length - 1]] });
             }
             if (item.year?.startsWith(query)) {
               matches.push({ key: "year", value: item.year, indices: [[0, query.length - 1]] });
@@ -89,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }).filter(Boolean);
         } else {
           const fuse = new Fuse(items, {
-            keys: ["name", "details", "category", "isbn", "year", "status"],
+            keys: ["name", "details", "category", "item_code", "year", "status"],
             threshold: 0.5,
             includeScore: true,
             includeMatches: true
@@ -140,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
           <td>${highlight(item.details, getMatch("details"))}</td>
           <td>${highlight(item.category, getMatch("category"))}</td>
           <td>${item.quantity}</td>
-          <td>${highlight(item.isbn, getMatch("isbn"))}</td>
+          <td>${highlight(item.item_code, getMatch("item_code"))}</td>
           <td>${highlight(item.year, getMatch("year"))}</td>
           <td>${item.location}</td>
           <td>${highlight(item.status, getMatch("status"))}</td>
@@ -149,7 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
       `;
     });
   }
-    // Clear button logic
+
   const clearButton = document.getElementById("clear-button");
   if (clearButton) {
     clearButton.addEventListener("click", function () {
@@ -157,5 +155,4 @@ document.addEventListener("DOMContentLoaded", function () {
       resultsTable.innerHTML = "<tr><td colspan='10'>Start typing to search...</td></tr>";
     });
   }
-
 });
