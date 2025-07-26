@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Member Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0"></script>
+  <link rel="stylesheet" href="css/home.css">
+  <link rel="stylesheet" href="css/member-dashboard.css">
+</head>
+<body>
+
+<header class="navbar">
+  <a href="index.html" class="logo">📚 Library Management System</a>
+  <nav class="nav-links" id="navLinks">
+    <a href="index.html">Home</a>
+    <a href="#">Logout</a>
+  </nav>
+  <div class="hamburger" onclick="toggleMenu()">☰</div>
+</header>
+
+<div class="dashboard-layout">
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar">
+    <h2>📋 Member Panel</h2>
+    <ul>
+      <li onclick="showSection('search-section')" class="active">🔍 Search Items</li>
+      <li onclick="showSection('members')">👥 My Profile</li>
+      <li onclick="showSection('logs')">📖 Borrowing History</li>
+    </ul>
+  </aside>
+
+  <!-- Main Dashboard Content -->
+  <main class="dashboard-content">
+
+    <!-- 🔍 Search Items Section -->
+    <section id="search-section" class="dashboard-section active">
+      <h2>🔍 Search Items</h2>
+      <div class="search-bar" style="margin-bottom: 20px;">
+        <input type="text" id="search-query" placeholder="Search by Title, Author, or Category..." style="padding: 10px; width: 300px;">
+        <button id="clear-button" style="padding: 10px 20px;">Clear</button>
+      </div>
+
+      <div class="item-table">
+        <div class="table-responsive">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Book Name</th>
+                <th>Author(s)</th>
+                <th>Category</th>
+                <th>Quantity</th>
+                <th>ISBN</th>
+                <th>Year</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Last Update</th>
+              </tr>
+            </thead>
+            <tbody id="search-results">
+              <!-- Search results will appear here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 👥 My Profile -->
+    <section id="members" class="dashboard-section">
+      <h2>👥 My Profile</h2>
+      <p>This is where member profile information will be displayed.</p>
+    </section>
+
+    <!-- 🔄 Borrowing Logs -->
+    <section id="logs" class="dashboard-section">
+      <h2>📖 Borrowing History</h2>
+      <p>This is where the member's borrowing history will be shown.</p>
+    </section>
+  </main>
+</div>
+
+<footer class="footer">
+  <div class="footer-copy">
+    &copy; 2025 Library Management System — Member Dashboard
+  </div>
+</footer>
+
+<div id="toast"></div>
+
+<script src="js/home.js"></script>
+<script src="js/member-dashboard.js"></script>
+</body>
+</html>
