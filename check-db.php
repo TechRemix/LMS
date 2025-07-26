@@ -1,6 +1,7 @@
 <?php
 // Try to connect using current app settings
-$conn = pg_connect("dbname=neondb"); // You can leave it empty if using env vars
+$conn = pg_connect("host=ep-delicate-frog-abhvcfve-pooler.eu-west-2.aws.neon.tech dbname=neondb user=neondb_owner password=npg_9Cf7QdRgmcPB sslmode=require");
+
 
 if (!$conn) {
     die("❌ Could not connect to database. It may be suspended or misconfigured.");
