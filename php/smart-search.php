@@ -2,9 +2,7 @@
 header("Content-Type: application/json");
 
 // Connect to PostgreSQL
-pg_connect("host=db.dfyivadvrlpakujebnqf.supabase.co port=5432 dbname=postgres user=postgres password=WjdiV/BVT2q8g2k");
-
-
+$conn = pg_connect("host=aws-0-eu-west-2.pooler.supabase.com port=5432 dbname=postgres user=postgres.dfyivadvrlpakujebnqf password=WjdiV/BVT2q8g2k");
 
 if (!$conn) {
   http_response_code(500);
