@@ -1,8 +1,7 @@
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Connect to PostgreSQL
-  pg_connect("host=ep-delicate-frog-abhvcfve-pooler.eu-west-2.aws.neon.tech dbname=neondb user=neondb_owner password=npg_9Cf7QdRgmcPB sslmode=require options='endpoint=ep-delicate-frog-abhvcfve'");
-
+  pg_connect("host=db.dfyivadvrlpakujebnqf.supabase.co port=5432 dbname=postgres user=postgres password=WjdiV/BVT2q8g2k");
 
   if (!$conn) {
     http_response_code(500);
