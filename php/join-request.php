@@ -27,6 +27,35 @@ if (!$full_name || !$email || !$password || !$job || !$address || !$phone || !$r
   exit;
 }
 
+// Field-specific validation
+if (strlen($full_name) > 255 || strlen($email) > 255 || strlen($job) > 255 || strlen($address) > 255 || strlen($phone) > 20 || strlen($reason) > 1000) {
+  http_response_code(400);
+  echo json_encode(["error" => "One or more fields exceed the maximum allowed length."]);
+  pg_close($conn);
+  exit;
+}
+
+if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+  http_response_code(400);
+  echo json_encode(["error" => "Invalid email format."]);
+  pg_close($conn);
+  exit;
+}
+
+if (!preg_match('/^\+?[0-9]{7,15}$/', $phone)) {
+  http_response_code(400);
+  echo json_encode(["error" => "Invalid phone number format. Use digits only (7–15 characters)."]);
+  pg_close($conn);
+  exit;
+}
+
+if (strlen($password) < 6) {
+  http_response_code(400);
+  echo json_encode(["error" => "Password must be at least 6 characters."]);
+  pg_close($conn);
+  exit;
+}
+
 // Hash the password
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
