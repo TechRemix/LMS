@@ -21,19 +21,21 @@
     <div class="hamburger" onclick="toggleMenu()">☰</div>
   </header>
 
-  <!-- Join Form -->
-  <main class="form-container">
-    <h2>Request Membership</h2>
-<form id="joinForm" action="php/join-request.php" method="POST">
-  <input type="text" id="full_name" name="full_name" placeholder="Full Name" required />
-  <input type="email" id="email" name="email" placeholder="Email Address" required />
-  <input type="password" id="password" name="password" placeholder="Create Password" required />
-  <input type="text" id="job" name="job" placeholder="Job" required />
-  <input type="text" id="address" name="address" placeholder="Address" required />
-  <input type="tel" id="phone" name="phone" placeholder="Phone Number" required />
-  <textarea id="reason" name="reason" rows="4" placeholder="Please explain your interests in requesting membership." required></textarea>
-  <button type="submit">Submit Request</button>
-</form>
+<!-- Join Form -->
+<main class="form-container">
+  <h2>Request Membership</h2>
+  <form id="joinForm" action="php/join-request.php" method="POST">
+    <input type="text" id="full_name" name="full_name" placeholder="Full Name" required maxlength="255" />
+    <input type="email" id="email" name="email" placeholder="Email Address" required maxlength="255" />
+    <input type="password" id="password" name="password" placeholder="Create Password" required minlength="6" maxlength="255" />
+    <input type="text" id="job" name="job" placeholder="Job" required maxlength="255" />
+    <input type="text" id="address" name="address" placeholder="Address" required maxlength="255" />
+    <input type="tel" id="phone" name="phone" placeholder="Phone Number" required maxlength="15" pattern="^\+?[0-9]{7,15}$" title="Use 7 to 15 digits only, optionally starting with +" />
+    <textarea id="reason" name="reason" rows="4" placeholder="Please explain your interests in requesting membership." required maxlength="1000"></textarea>
+    <button type="submit">Submit Request</button>
+  </form>
+</main>
+
 
 <!-- Login popup (used for both Staff and Member) -->
 <div id="loginPopup" class="popup-overlay">
