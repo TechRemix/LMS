@@ -126,7 +126,12 @@
         alert("Membership request submitted!");
         form.reset();
       } else {
-        alert("Error: " + (result.error || "Submission failed."));
+       if (result.error && result.error.includes("Email or phone")) {
+  alert("This email or phone number is already in use. Please use different ones.");
+} else {
+  alert("Error: " + (result.error || "Submission failed."));
+}
+
       }
     } catch (err) {
       alert("An unexpected error occurred.");
