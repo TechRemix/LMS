@@ -113,6 +113,37 @@ window.addEventListener("click", function (e) {
   }
 });
 
+    document.getElementById('joinForm').addEventListener('submit', async function (e) {
+  e.preventDefault();
+
+  const reason = document.getElementById('reason').value.trim();
+  const wordCount = reason.split(/\s+/).filter(word => word.length > 0).length;
+
+  if (wordCount < 10) {
+    alert("Please write at least 10 words explaining why you want to join.");
+    return;
+  }
+
+  const form = e.target;
+  const formData = new FormData(form);
+
+  const response = await fetch(form.action, {
+    method: "POST",
+    body: formData
+  });
+
+  const result = await response.json();
+
+  if (result.success) {
+    alert("Membership request submitted!");
+
+    // Clear the form
+    form.reset();
+  } else {
+    alert("Error: " + (result.error || "Submission failed."));
+  }
+});
+
   </script>
 
   <!-- Include the reCAPTCHA script -->
