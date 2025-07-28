@@ -125,19 +125,20 @@
       if (result.success) {
         alert("Membership request submitted!");
         form.reset();
+      } else if (result.error && result.error.includes("Email is already in use")) {
+        alert("This email address is already registered. Please use a different one.");
+      } else if (result.error && result.error.includes("Phone number is already in use")) {
+        alert("This phone number is already registered. Please use a different one.");
       } else {
-       if (result.error && result.error.includes("Email or phone")) {
-  alert("This email or phone number is already in use. Please use different ones.");
-} else {
-  alert("Error: " + (result.error || "Submission failed."));
-}
-
+        alert("Error: " + (result.error || "Submission failed."));
       }
+
     } catch (err) {
       alert("An unexpected error occurred.");
     }
   });
 </script>
+
 
 
   <!-- Include the reCAPTCHA script -->
