@@ -126,9 +126,9 @@
         alert("Membership request submitted!");
         form.reset();
       } else if (result.error && result.error.includes("Email is already in use")) {
-        alert("⚠️ Email is already in use.");
+        alert("⚠️ Email is already in use!");
       } else if (result.error && result.error.includes("Phone number is already in use")) {
-        alert("⚠️ Phone number is already in use.");
+        alert("⚠️ Phone number is already in use!");
       } else {
         alert("Error: " + (result.error || "Submission failed."));
       }
